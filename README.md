@@ -71,7 +71,7 @@ $nodes = [
 	],
 	[				// advanced way, using SSL(TLS)
 		'class'		=> 'CassandraPHP\Connection\Stream', // "class" must be defined as "CassandraPHP\Connection\Stream" for ssl or tls
-		'host'		=> 'ssl://10.205.48.70',// or 'tls://10.205.48.70'
+		'host'		=> 'ssl://10.205.48.70',// or 'tls://10.205.48.70'. ssl/tls can be omitted if 'ssl' option is set.
 		'port'		=> 9042,
 		'username'	=> 'admin',
 		'password'	=> 'pass',

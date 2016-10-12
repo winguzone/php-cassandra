@@ -46,6 +46,9 @@ class Stream {
 
 		$context = stream_context_create();
 		if (isset($this->_options['ssl'])){
+			if (strpos($this->_options['host'], 'ssl://') === false && strpos($this->_options['host'], 'tls://') === false  ){
+					$this->_options['host'] = 'tls://'.$this->_options['host'];
+			}
 			stream_context_set_option($context, ['ssl' => $this->_options['ssl']]);
 		}
 
