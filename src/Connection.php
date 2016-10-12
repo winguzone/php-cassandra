@@ -55,9 +55,27 @@ class Connection {
      * @param array $options
      */
     public function __construct($nodes, $keyspace = '', array $options = []) {
-        if (is_array($nodes))
-            shuffle($nodes);
-        
+        if (is_array($nodes)){
+			$host_nodes = [];
+			foreach($nodes as $node) {
+				if (is_array($node))
+					$host_string = $node['host'];
+				else
+					$host_string = $node;
+
+				$hosts = preg_split( "/[\s,;]+/", $host_string, -1,  PREG_SPLIT_NO_EMPTY);
+				foreach($hosts as $host) {
+					if (is_array($node))
+						$node['host'] = $host;
+					else
+						$node = $host;
+					array_push($host_nodes, $node);
+				}
+			}
+			$nodes = $host_nodes;
+			shuffle($nodes);
+		}
+
         $this->_nodes = $nodes;
         $this->_options = array_merge($this->_options, $options);
         $this->_keyspace = $keyspace;
@@ -211,7 +229,7 @@ class Connection {
         $this->_connect();
         
         //ugly way to detect existing connection...
-        if ($this->getNode()->getOptions()['persistent']) {
+        if (!empty($this->getNode()->getOptions()['persistent'])) {
 			$chunk = stream_set_chunk_size($this->getNode()->getStream(), 8193);
 			if ($chunk == 8193)
 				return;

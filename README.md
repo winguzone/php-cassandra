@@ -50,9 +50,10 @@ require 'php-cassandra-folder-on-your-computer/php-cassandra.php';
 
 $nodes = [
 	'127.0.0.1',		// simple way, hostname only
-	'192.168.0.2:9042',	// simple way, hostname with port 
+	'192.168.0.2:9042',	// simple way, hostname with port
+	'host1, host2; host3', //simple way, host list. Spaces, tabs, commas and semicolons are delimiters
 	[				// advanced way, array including username, password and socket options
-		'host'		=> '10.205.48.70',
+		'host'		=> '10.205.48.70, 10.205.48.71', //host list can be used
 		'port'		=> 9042, //default 9042
 		'username'	=> 'admin',
 		'password'	=> 'pass',
