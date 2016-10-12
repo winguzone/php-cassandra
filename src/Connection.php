@@ -53,8 +53,9 @@ class Connection {
      * @param array|\Traversable $nodes
      * @param string $keyspace
      * @param array $options
+	 * @param boolean $shuffle
      */
-    public function __construct($nodes, $keyspace = '', array $options = []) {
+    public function __construct($nodes, $keyspace = '', array $options = [], $shuffle = true) {
         if (is_array($nodes)){
 			$host_nodes = [];
 			foreach($nodes as $node) {
@@ -73,7 +74,8 @@ class Connection {
 				}
 			}
 			$nodes = $host_nodes;
-			shuffle($nodes);
+			if ($shuffle)
+				shuffle($nodes);
 		}
 
         $this->_nodes = $nodes;

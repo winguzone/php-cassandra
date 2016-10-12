@@ -84,7 +84,7 @@ $nodes = [
 ];
 
 // Create a connection.
-$connection = new CassandraPHP\Connection($nodes, 'my_keyspace');
+$connection = new CassandraPHP\Connection($nodes, 'my_keyspace', [], false /*do not shuffle nodes, preserve connect order*/);
 
 //Connect
 try
