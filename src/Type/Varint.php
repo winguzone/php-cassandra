@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Type;
+namespace CassandraPHP\Type;
 
 class Varint extends Bigint{
     /**

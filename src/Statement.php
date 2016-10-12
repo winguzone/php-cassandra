@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra;
+namespace CassandraPHP;
 
 class Statement{
 	/**

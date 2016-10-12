@@ -1,4 +1,4 @@
 <?php
-namespace Cassandra;
+namespace CassandraPHP;
 
 class Exception extends \Exception {}

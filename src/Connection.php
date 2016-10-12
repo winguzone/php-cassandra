@@ -1,6 +1,6 @@
 <?php
-namespace Cassandra;
-use Cassandra\Protocol\Frame;
+namespace CassandraPHP;
+use CassandraPHP\Protocol\Frame;
 
 class Connection {
 
@@ -86,7 +86,7 @@ class Connection {
                 }
             }
             else{
-                $className = isset($options['class']) ? $options['class'] : 'Cassandra\Connection\Socket';
+                $className = isset($options['class']) ? $options['class'] : 'CassandraPHP\Connection\Socket';
                 try {
                     $this->_node = new $className($options);
                 } catch (Exception $e) {
@@ -151,13 +151,13 @@ class Connection {
                 $body = $header['length'] === 0 ? '' : $this->_node->read($header['length']);
                 
                 static $responseClassMap = [
-                    Frame::OPCODE_ERROR            => 'Cassandra\Response\Error',
-                    Frame::OPCODE_READY            => 'Cassandra\Response\Ready',
-                    Frame::OPCODE_AUTHENTICATE    => 'Cassandra\Response\Authenticate',
-                    Frame::OPCODE_SUPPORTED        => 'Cassandra\Response\Supported',
-                    Frame::OPCODE_RESULT        => 'Cassandra\Response\Result',
-                    Frame::OPCODE_EVENT            => 'Cassandra\Response\Event',
-                    Frame::OPCODE_AUTH_SUCCESS    => 'Cassandra\Response\AuthSuccess',
+                    Frame::OPCODE_ERROR            => 'CassandraPHP\Response\Error',
+                    Frame::OPCODE_READY            => 'CassandraPHP\Response\Ready',
+                    Frame::OPCODE_AUTHENTICATE    => 'CassandraPHP\Response\Authenticate',
+                    Frame::OPCODE_SUPPORTED        => 'CassandraPHP\Response\Supported',
+                    Frame::OPCODE_RESULT        => 'CassandraPHP\Response\Result',
+                    Frame::OPCODE_EVENT            => 'CassandraPHP\Response\Event',
+                    Frame::OPCODE_AUTH_SUCCESS    => 'CassandraPHP\Response\AuthSuccess',
                 ];
                 
                 if (!isset($responseClassMap[$header['opcode']]))

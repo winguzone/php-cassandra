@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Response;
+namespace CassandraPHP\Response;
 
 class AuthSuccess extends Response {
 	public function getData(){

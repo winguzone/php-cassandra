@@ -1,6 +1,6 @@
 <?php
 
-namespace Cassandra\Response;
+namespace CassandraPHP\Response;
 
 /**
  * @author Dennis Birkholz <birkholz@pubgrade.com>

@@ -1,7 +1,7 @@
 <?php 
-namespace Cassandra\Response;
-use Cassandra\Protocol\Frame;
-use Cassandra\Type;
+namespace CassandraPHP\Response;
+use CassandraPHP\Protocol\Frame;
+use CassandraPHP\Type;
 
 class Result extends Response implements \IteratorAggregate {
     const VOID = 0x0001;

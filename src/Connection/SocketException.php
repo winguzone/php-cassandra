@@ -1,4 +1,4 @@
 <?php
-namespace Cassandra\Connection;
+namespace CassandraPHP\Connection;
 
-class SocketException extends \Cassandra\Exception {}
+class SocketException extends \CassandraPHP\Exception {}

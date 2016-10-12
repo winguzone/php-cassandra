@@ -1,9 +1,9 @@
 <?php
-namespace Cassandra\Request;
-use Cassandra\Protocol\Frame;
-use Cassandra\Protocol;
-use Cassandra\Connection;
-use Cassandra\Type;
+namespace CassandraPHP\Request;
+use CassandraPHP\Protocol\Frame;
+use CassandraPHP\Protocol;
+use CassandraPHP\Connection;
+use CassandraPHP\Type;
 
 class Batch extends Request{
     const TYPE_LOGGED = 0;
@@ -113,7 +113,7 @@ class Batch extends Request{
             /**
              * @link https://github.com/duoshuo/php-cassandra/issues/40
              */
-            throw new \Cassandra\Exception('NAMES_FOR_VALUES in batch request seems never work in Cassandra 2.1.x.  Keep NAMES_FOR_VALUES flag false to avoid this bug.');
+            throw new \CassandraPHP\Exception('NAMES_FOR_VALUES in batch request seems never work in Cassandra 2.1.x.  Keep NAMES_FOR_VALUES flag false to avoid this bug.');
             
             $flags |= Query::FLAG_WITH_NAMES_FOR_VALUES;
         }

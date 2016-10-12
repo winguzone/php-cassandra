@@ -1,7 +1,7 @@
 <?php
-namespace Cassandra\Request;
-use Cassandra\Protocol\Frame;
-use Cassandra\Type;
+namespace CassandraPHP\Request;
+use CassandraPHP\Protocol\Frame;
+use CassandraPHP\Type;
 
 class Request implements Frame{
 

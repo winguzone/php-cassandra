@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Response;
+namespace CassandraPHP\Response;
 
 class Supported extends Response {
 	public function getData(){

@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Type;
+namespace CassandraPHP\Type;
 
 abstract class Base{
     
@@ -27,28 +27,28 @@ abstract class Base{
     const TUPLE = 0x0031;
     
     public static $typeClassMap = [
-        self::ASCII     => 'Cassandra\Type\Ascii',
-        self::VARCHAR   => 'Cassandra\Type\Varchar',
-        self::TEXT      => 'Cassandra\Type\Varchar',  // deprecated in Protocol v3
-        self::VARINT    => 'Cassandra\Type\Varint',
-        self::BIGINT    => 'Cassandra\Type\Bigint',
-        self::COUNTER   => 'Cassandra\Type\Counter',
-        self::TIMESTAMP => 'Cassandra\Type\Timestamp',
-        self::BLOB      => 'Cassandra\Type\Blob',
-        self::BOOLEAN   => 'Cassandra\Type\Boolean',
-        self::DECIMAL   => 'Cassandra\Type\Decimal',
-        self::DOUBLE    => 'Cassandra\Type\Double',
-        self::FLOAT     => 'Cassandra\Type\PhpFloat',
-        self::INT       => 'Cassandra\Type\PhpInt',
-        self::UUID      => 'Cassandra\Type\Uuid',
-        self::TIMEUUID  => 'Cassandra\Type\Timeuuid',
-        self::INET      => 'Cassandra\Type\Inet',
-        self::COLLECTION_LIST => 'Cassandra\Type\CollectionList',
-        self::COLLECTION_SET  => 'Cassandra\Type\CollectionSet',
-        self::COLLECTION_MAP  => 'Cassandra\Type\CollectionMap',
-        self::UDT       => 'Cassandra\Type\UDT',
-        self::TUPLE     => 'Cassandra\Type\Tuple',
-        self::CUSTOM    => 'Cassandra\Type\Custom',
+        self::ASCII     => 'CassandraPHP\Type\Ascii',
+        self::VARCHAR   => 'CassandraPHP\Type\Varchar',
+        self::TEXT      => 'CassandraPHP\Type\Varchar',  // deprecated in Protocol v3
+        self::VARINT    => 'CassandraPHP\Type\Varint',
+        self::BIGINT    => 'CassandraPHP\Type\Bigint',
+        self::COUNTER   => 'CassandraPHP\Type\Counter',
+        self::TIMESTAMP => 'CassandraPHP\Type\Timestamp',
+        self::BLOB      => 'CassandraPHP\Type\Blob',
+        self::BOOLEAN   => 'CassandraPHP\Type\Boolean',
+        self::DECIMAL   => 'CassandraPHP\Type\Decimal',
+        self::DOUBLE    => 'CassandraPHP\Type\Double',
+        self::FLOAT     => 'CassandraPHP\Type\PhpFloat',
+        self::INT       => 'CassandraPHP\Type\PhpInt',
+        self::UUID      => 'CassandraPHP\Type\Uuid',
+        self::TIMEUUID  => 'CassandraPHP\Type\Timeuuid',
+        self::INET      => 'CassandraPHP\Type\Inet',
+        self::COLLECTION_LIST => 'CassandraPHP\Type\CollectionList',
+        self::COLLECTION_SET  => 'CassandraPHP\Type\CollectionSet',
+        self::COLLECTION_MAP  => 'CassandraPHP\Type\CollectionMap',
+        self::UDT       => 'CassandraPHP\Type\UDT',
+        self::TUPLE     => 'CassandraPHP\Type\Tuple',
+        self::CUSTOM    => 'CassandraPHP\Type\Custom',
     ];
 
     /**

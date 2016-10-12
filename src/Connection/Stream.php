@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Connection;
+namespace CassandraPHP\Connection;
 
 class Stream {
 

@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Type;
+namespace CassandraPHP\Type;
 
 class CollectionMap extends Base{
     
@@ -44,6 +44,6 @@ class CollectionMap extends Base{
     }
     
     public static function parse($binary, array $definition){
-        return (new \Cassandra\Response\StreamReader($binary))->readMap($definition);
+        return (new \CassandraPHP\Response\StreamReader($binary))->readMap($definition);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Type;
+namespace CassandraPHP\Type;
 
 class CollectionList extends Base{
     
@@ -32,6 +32,6 @@ class CollectionList extends Base{
     }
     
     public static function parse($binary, array $definition){
-        return (new \Cassandra\Response\StreamReader($binary))->readList($definition);
+        return (new \CassandraPHP\Response\StreamReader($binary))->readList($definition);
     }
 }

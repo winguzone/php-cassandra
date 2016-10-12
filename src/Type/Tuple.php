@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Type;
+namespace CassandraPHP\Type;
 
 class Tuple extends Base{
 
@@ -45,6 +45,6 @@ class Tuple extends Base{
      * @return array
      */
     public static function parse($binary, array $definition){
-        return (new \Cassandra\Response\StreamReader($binary))->readTuple($definition);
+        return (new \CassandraPHP\Response\StreamReader($binary))->readTuple($definition);
     }
 }

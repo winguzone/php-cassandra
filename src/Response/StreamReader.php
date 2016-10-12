@@ -1,7 +1,7 @@
 <?php
-namespace Cassandra\Response;
+namespace CassandraPHP\Response;
 
-use Cassandra\Type;
+use CassandraPHP\Type;
 
 class StreamReader {
 

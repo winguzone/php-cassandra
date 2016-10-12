@@ -1,6 +1,6 @@
 <?php
-namespace Cassandra\Response;
-use Cassandra\Protocol\Frame;
+namespace CassandraPHP\Response;
+use CassandraPHP\Protocol\Frame;
 
 class Error extends Response {
 	const SERVER_ERROR = 0x0000;

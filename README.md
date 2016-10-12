@@ -1,14 +1,14 @@
-Cassandra client library for PHP 
+CassandraPHP client library for PHP 
 ================================
 
 <a href="https://codeclimate.com/github/duoshuo/php-cassandra/"><img src="https://codeclimate.com/github/duoshuo/php-cassandra.png" /></a>
 <a href="https://scrutinizer-ci.com/g/duoshuo/php-cassandra/"><img src="https://scrutinizer-ci.com/g/duoshuo/php-cassandra/badges/quality-score.png?b=master" /></a>
 <a href="https://scrutinizer-ci.com/g/duoshuo/php-cassandra/"><img src="https://scrutinizer-ci.com/g/duoshuo/php-cassandra/badges/build.png?b=master" /></a>
 
-Cassandra client library for PHP, which support Protocol v3 (Cassandra 2.1) and asynchronous request 
+CassandraPHP client library for PHP, which support Protocol v3 (CassandraPHP 2.1) and asynchronous request 
 
 ## Features
-* Using Protocol v3 (Cassandra 2.1)
+* Using Protocol v3 (CassandraPHP 2.1)
 * Support ssl/tls with stream transport layer
 * Support asynchronous and synchronous request
 * Support for logged, unlogged and counter batches
@@ -64,13 +64,13 @@ $nodes = [
 		'port'		=> 9042,
 		'username'	=> 'admin',
 		'password'	=> 'pass',
-		'class'		=> 'Cassandra\Connection\Stream',//use stream instead of socket, default socket. Stream may not work in some environment
+		'class'		=> 'CassandraPHP\Connection\Stream',//use stream instead of socket, default socket. Stream may not work in some environment
 		'connectTimeout' => 10, // connection timeout, default 5,  stream transport only
 		'timeout'	=> 30, // write/recv timeout, default 30, stream transport only
 		'persistent'	=> true, // use persistent PHP connection, default false,  stream transport only  
 	],
 	[				// advanced way, using SSL(TLS)
-		'class'		=> 'Cassandra\Connection\Stream', // "class" must be defined as "Cassandra\Connection\Stream" for ssl or tls
+		'class'		=> 'CassandraPHP\Connection\Stream', // "class" must be defined as "CassandraPHP\Connection\Stream" for ssl or tls
 		'host'		=> 'ssl://10.205.48.70',// or 'tls://10.205.48.70'
 		'port'		=> 9042,
 		'username'	=> 'admin',
@@ -83,14 +83,14 @@ $nodes = [
 ];
 
 // Create a connection.
-$connection = new Cassandra\Connection($nodes, 'my_keyspace');
+$connection = new CassandraPHP\Connection($nodes, 'my_keyspace');
 
 //Connect
 try
 {
 	$connection->connect();
 }
-catch (Cassandra\Exception $e)
+catch (CassandraPHP\Exception $e)
 {
 	echo 'Caught exception: ',  $e->getMessage(), "\n";
 	exit;//if connect failed it may be good idea not to continue
@@ -103,9 +103,9 @@ $connection->setConsistency(Request::CONSISTENCY_QUORUM);
 // Run query synchronously.
 try
 {
-	$response = $connection->querySync('SELECT * FROM "users" WHERE "id" = ?', [new Cassandra\Type\Uuid('c5420d81-499e-4c9c-ac0c-fa6ba3ebc2bc')]);
+	$response = $connection->querySync('SELECT * FROM "users" WHERE "id" = ?', [new CassandraPHP\Type\Uuid('c5420d81-499e-4c9c-ac0c-fa6ba3ebc2bc')]);
 }
-catch (Cassandra\Exception $e)
+catch (CassandraPHP\Exception $e)
 {
 }
 ```
@@ -157,7 +157,7 @@ try
 	$rows1 = $response1->fetchAll();
 	$rows2 = $response2->fetchAll();
 }
-catch (Cassandra\Exception $e)
+catch (CassandraPHP\Exception $e)
 {
 }
 ```
@@ -167,7 +167,7 @@ catch (Cassandra\Exception $e)
 ```php
 $preparedData = $connection->prepare('SELECT * FROM "users" WHERE "id" = :id');
 
-$strictValues = Cassandra\Request\Request::strictTypeValues(
+$strictValues = CassandraPHP\Request\Request::strictTypeValues(
 	[
 		'id' => 'c5420d81-499e-4c9c-ac0c-fa6ba3ebc2bc',
 	],
@@ -177,7 +177,7 @@ $strictValues = Cassandra\Request\Request::strictTypeValues(
 $response = $connection->executeSync(
 	$preparedData['id'],
 	$strictValues,
-	Cassandra\Request\Request::CONSISTENCY_QUORUM,
+	CassandraPHP\Request\Request::CONSISTENCY_QUORUM,
 	[
 		'page_size' => 100,
 		'names_for_values' => true,
@@ -192,7 +192,7 @@ $rows = $response->fetchAll();
 ## Using Batch
 
 ```php
-$batchRequest = new Cassandra\Request\Batch();
+$batchRequest = new CassandraPHP\Request\Batch();
 
 // Append a prepared query
 $preparedData = $connection->prepare('UPDATE "students" SET "age" = :age WHERE "id" = :id');
@@ -200,14 +200,14 @@ $values = [
 	'age' => 21,
 	'id' => 'c5419d81-499e-4c9c-ac0c-fa6ba3ebc2bc',
 ];
-$batchRequest->appendQueryId($preparedData['id'], Cassandra\Request\Request::strictTypeValues($values, $preparedData['metadata']['columns']));
+$batchRequest->appendQueryId($preparedData['id'], CassandraPHP\Request\Request::strictTypeValues($values, $preparedData['metadata']['columns']));
 
 // Append a query string
 $batchRequest->appendQuery(
 	'INSERT INTO "students" ("id", "name", "age") VALUES (:id, :name, :age)',
 	[
-		'id' => new Cassandra\Type\Uuid('c5420d81-499e-4c9c-ac0c-fa6ba3ebc2bc'),
-		'name' => new Cassandra\Type\Varchar('Mark'),
+		'id' => new CassandraPHP\Type\Uuid('c5420d81-499e-4c9c-ac0c-fa6ba3ebc2bc'),
+		'name' => new CassandraPHP\Type\Varchar('Mark'),
 		'age' => 20,
 	]
 );
@@ -222,75 +222,75 @@ All types are supported.
 
 ```php
 //  Ascii
-    new Cassandra\Type\Ascii('string');
+    new CassandraPHP\Type\Ascii('string');
 
 //  Bigint
-    new Cassandra\Type\Bigint(10000000000);
+    new CassandraPHP\Type\Bigint(10000000000);
 
 //  Blob
-    new Cassandra\Type\Blob('string');
+    new CassandraPHP\Type\Blob('string');
 
 //  Boolean
-    new Cassandra\Type\Boolean(true);
+    new CassandraPHP\Type\Boolean(true);
 
 //  Counter
-    new Cassandra\Type\Counter(1000);
+    new CassandraPHP\Type\Counter(1000);
 
 //  Decimal
-    new Cassandra\Type\Decimal('0.0123');
+    new CassandraPHP\Type\Decimal('0.0123');
 
 //  Double
-    new Cassandra\Type\Double(2.718281828459);
+    new CassandraPHP\Type\Double(2.718281828459);
 
 //  Float
-    new Cassandra\Type\PhpFloat(2.718);
+    new CassandraPHP\Type\PhpFloat(2.718);
 
 //  Inet
-    new Cassandra\Type\Inet('127.0.0.1');
+    new CassandraPHP\Type\Inet('127.0.0.1');
 
 //  Int
-    new Cassandra\Type\PhpInt(1);
+    new CassandraPHP\Type\PhpInt(1);
 
 //  CollectionList
-    new Cassandra\Type\CollectionList([1, 1, 1], [Cassandra\Type\Base::INT]);
+    new CassandraPHP\Type\CollectionList([1, 1, 1], [CassandraPHP\Type\Base::INT]);
 
 //  CollectionMap
-    new Cassandra\Type\CollectionMap(['a' => 1, 'b' => 2], [Cassandra\Type\Base::ASCII, Cassandra\Type\Base::INT]);
+    new CassandraPHP\Type\CollectionMap(['a' => 1, 'b' => 2], [CassandraPHP\Type\Base::ASCII, CassandraPHP\Type\Base::INT]);
 
 //  CollectionSet
-    new Cassandra\Type\CollectionSet([1, 2, 3], [Cassandra\Type\Base::INT]);
+    new CassandraPHP\Type\CollectionSet([1, 2, 3], [CassandraPHP\Type\Base::INT]);
 
 //  Timestamp (unit: millisecond)
-    new Cassandra\Type\Timestamp((int) (microtime(true) * 1000));
-    new Cassandra\Type\Timestamp(1409830696263);
+    new CassandraPHP\Type\Timestamp((int) (microtime(true) * 1000));
+    new CassandraPHP\Type\Timestamp(1409830696263);
 
 //  Uuid
-    new Cassandra\Type\Uuid('62c36092-82a1-3a00-93d1-46196ee77204');
+    new CassandraPHP\Type\Uuid('62c36092-82a1-3a00-93d1-46196ee77204');
 
 //  Timeuuid
-    new Cassandra\Type\Timeuuid('2dc65ebe-300b-11e4-a23b-ab416c39d509');
+    new CassandraPHP\Type\Timeuuid('2dc65ebe-300b-11e4-a23b-ab416c39d509');
 
 //  Varchar
-    new Cassandra\Type\Varchar('string');
+    new CassandraPHP\Type\Varchar('string');
 
 //  Varint
-    new Cassandra\Type\Varint(10000000000);
+    new CassandraPHP\Type\Varint(10000000000);
 
 //  Custom
-    new Cassandra\Type\Custom('string', 'var_name');
+    new CassandraPHP\Type\Custom('string', 'var_name');
 
 //  Tuple
-    new Cassandra\Type\Tuple([1, '2'], [Cassandra\Type\Base::INT, Cassandra\Type\Base::VARCHAR]);
+    new CassandraPHP\Type\Tuple([1, '2'], [CassandraPHP\Type\Base::INT, CassandraPHP\Type\Base::VARCHAR]);
 
 //  UDT
-    new Cassandra\Type\UDT(['intField' => 1, 'textField' => '2'], ['intField' => Cassandra\Type\Base::INT, 'textField' => Cassandra\Type\Base::VARCHAR]); 	// in the order defined by the type
+    new CassandraPHP\Type\UDT(['intField' => 1, 'textField' => '2'], ['intField' => CassandraPHP\Type\Base::INT, 'textField' => CassandraPHP\Type\Base::VARCHAR]); 	// in the order defined by the type
 ```
 
 ## Using nested datatypes
 
 ```php
 // CollectionSet<UDT>, where UDT contains: Int, Text, Boolean, CollectionList<Text>, CollectionList<UDT>
-new Cassandra\Type\CollectionSet([
+new CassandraPHP\Type\CollectionSet([
 	[
 		'id' => 1,
 		'name' => 'string',
@@ -306,22 +306,22 @@ new Cassandra\Type\CollectionSet([
 	]
 ], [
 	[
-	'type' => Cassandra\Type\Base::UDT,
+	'type' => CassandraPHP\Type\Base::UDT,
 	'definition' => [
-		'id' => Cassandra\Type\Base::INT,
-		'name' => Cassandra\Type\Base::VARCHAR,
-		'active' => Cassandra\Type\Base::BOOLEAN,
+		'id' => CassandraPHP\Type\Base::INT,
+		'name' => CassandraPHP\Type\Base::VARCHAR,
+		'active' => CassandraPHP\Type\Base::BOOLEAN,
 		'friends' => [
-			'type' => Cassandra\Type\Base::COLLECTION_LIST,
-			'value' => Cassandra\Type\Base::VARCHAR
+			'type' => CassandraPHP\Type\Base::COLLECTION_LIST,
+			'value' => CassandraPHP\Type\Base::VARCHAR
 		],
 		'drinks' => [
-			'type' => Cassandra\Type\Base::COLLECTION_LIST,
+			'type' => CassandraPHP\Type\Base::COLLECTION_LIST,
 			'value' => [
-				'type' => Cassandra\Type\Base::UDT,
+				'type' => CassandraPHP\Type\Base::UDT,
 				'typeMap' => [
-					'qty' => Cassandra\Type\Base::INT,
-					'brand' => Cassandra\Type\Base::VARCHAR
+					'qty' => CassandraPHP\Type\Base::INT,
+					'brand' => CassandraPHP\Type\Base::VARCHAR
 				]
 			]
 		]
@@ -333,8 +333,8 @@ new Cassandra\Type\CollectionSet([
 ## Recommend Libraries
 * [shen2/fluent-cql](https://github.com/shen2/FluentCQL): write CQL in fluent interface
 * [duoshuo/uuid](https://github.com/duoshuo/uuid): generate UUID and TimeUUID
-* [shen2/crest](https://github.com/shen2/crest): Restful web API for Cassandra
-* [shen2/cadmin](https://github.com/shen2/cadmin): Web admin panel for Cassandra, like phpmyadmin
+* [shen2/crest](https://github.com/shen2/crest): Restful web API for CassandraPHP
+* [shen2/cadmin](https://github.com/shen2/cadmin): Web admin panel for CassandraPHP, like phpmyadmin
 
 ## Inspired by
 * [mauritsl/php-cassandra](https://github.com/mauritsl/php-cassandra)

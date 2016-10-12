@@ -1,5 +1,5 @@
 <?php
-namespace Cassandra\Protocol;
+namespace CassandraPHP\Protocol;
 
 interface Frame {
 

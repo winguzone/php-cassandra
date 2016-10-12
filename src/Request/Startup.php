@@ -1,6 +1,6 @@
 <?php
-namespace Cassandra\Request;
-use Cassandra\Protocol\Frame;
+namespace CassandraPHP\Request;
+use CassandraPHP\Protocol\Frame;
 
 class Startup extends Request{
 	

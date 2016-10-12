@@ -1,4 +1,4 @@
 <?php
-namespace Cassandra\Response;
+namespace CassandraPHP\Response;
 
-class Exception extends \Cassandra\Exception {}
+class Exception extends \CassandraPHP\Exception {}
