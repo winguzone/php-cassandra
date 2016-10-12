@@ -46,8 +46,7 @@ class Stream {
 
 		$context = stream_context_create();
 		if (isset($this->_options['ssl'])){
-			foreach($this->_options['ssl'] as $optname => $optval)
-				stream_context_set_option($context, 'ssl', $optname, $optval);
+			stream_context_set_option($context, ['ssl' => $this->_options['ssl']]);
 		}
 
 		$connFlag = STREAM_CLIENT_CONNECT | ($this->_options['persistent'] ? STREAM_CLIENT_PERSISTENT : 0);
