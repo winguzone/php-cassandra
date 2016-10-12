@@ -54,8 +54,9 @@ class Connection {
      * @param string $keyspace
      * @param array $options
 	 * @param boolean $shuffle
+	 * @param boolean $resolve
      */
-    public function __construct($nodes, $keyspace = '', array $options = [], $shuffle = true) {
+    public function __construct($nodes, $keyspace = '', array $options = [], $shuffle = true, $resolve = false) {
         if (is_array($nodes)){
 			$host_nodes = [];
 			foreach($nodes as $node) {
@@ -64,13 +65,26 @@ class Connection {
 				else
 					$host_string = $node;
 
-				$hosts = preg_split( "/[\s,;]+/", $host_string, -1,  PREG_SPLIT_NO_EMPTY);
-				foreach($hosts as $host) {
-					if (is_array($node))
-						$node['host'] = $host;
-					else
-						$node = $host;
-					array_push($host_nodes, $node);
+				$names = preg_split( "/[\s,;]+/", $host_string, -1,  PREG_SPLIT_NO_EMPTY);
+				foreach($names as $name) {
+					if ($resolve){
+						$transp = strpos($name,'://');
+						if ($transp){
+							$name = substr($name, $transp+3);
+						}
+						$hosts = gethostbynamel($name);
+						if (!$hosts)
+							$hosts = $names;//may be stream or socket will be more lucky
+					}else{
+						$hosts = $names;
+					}
+					foreach($hosts as $host){
+						if (is_array($node))
+							$node['host'] = $host;
+						else
+							$node = $host;
+						array_push($host_nodes, $node);
+					}
 				}
 			}
 			$nodes = $host_nodes;

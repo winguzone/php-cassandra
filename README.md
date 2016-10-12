@@ -84,7 +84,9 @@ $nodes = [
 ];
 
 // Create a connection.
-$connection = new CassandraPHP\Connection($nodes, 'my_keyspace', [], false /*do not shuffle nodes, preserve connect order*/);
+$connection = new CassandraPHP\Connection($nodes, 'my_keyspace', [], 
+											false /*do not shuffle nodes, preserve connect order*/,
+											true  /*resolve nodes IPs. Useful when host have multiple IPs. Set ssl verify_peer_name=false to prevent common name mismatch*/);
 
 //Connect
 try
