@@ -210,6 +210,13 @@ class Connection {
         
         $this->_connect();
         
+        //ugly way to detect existing connection...
+        if ($this->getNode()->getOptions()['persistent']) {
+			$chunk = stream_set_chunk_size($this->getNode()->getStream(), 8193);
+			if ($chunk == 8193)
+				return;
+        }
+
         $response = $this->syncRequest(new Request\Startup($this->_options));
         
         if ($response instanceof Response\Authenticate){

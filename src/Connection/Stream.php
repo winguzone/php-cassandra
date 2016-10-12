@@ -30,6 +30,12 @@ class Stream {
 		$this->_connect();
 	}
 
+
+	public function getStream() {
+		return $this->_stream;
+	}
+
+
 	/**
 	 *
 	 * @throws StreamException
@@ -44,7 +50,7 @@ class Stream {
 				stream_context_set_option($context, 'ssl', $optname, $optval);
 		}
 
-		$connFlag = $this->_options['persistent'] ? STREAM_CLIENT_PERSISTENT : STREAM_CLIENT_CONNECT ;
+		$connFlag = STREAM_CLIENT_CONNECT | ($this->_options['persistent'] ? STREAM_CLIENT_PERSISTENT : 0);
  		$this->_stream = stream_socket_client($this->_options['host'].':'. $this->_options['port'], $errorCode, $errorMessage, $this->_options['connectTimeout'], $connFlag, $context);
 
 		if ($this->_stream === false){
